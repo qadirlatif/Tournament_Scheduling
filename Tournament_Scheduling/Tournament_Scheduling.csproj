@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\PointsTable.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TSContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,6 +121,7 @@
     <Content Include="Views\Cricket\Index.cshtml" />
     <Content Include="Views\Cricket\AddEvent.cshtml" />
     <Content Include="Views\Cricket\Schedules.cshtml" />
+    <Content Include="Views\Cricket\PointsTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

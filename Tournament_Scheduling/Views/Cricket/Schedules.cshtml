@@ -16,17 +16,49 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var match in Model)
-            {
-                <tr>
-                    <td>@match.TeamA_Name</td>
-                    <td>@match.TeamB_Name</td>
-                    <td><input type="text" value="@match.Venue" class="form-control"/></td>
-                    <td><input type="text" value="@match.MatchDate.ToString("MM/dd/yyyy")" class="form-control" /></td>
-                    <td><input type="number" value="@match.TeamA_score" class="form-control" /></td>
-                    <td><input type="number" value="@match.TeamB_score" class="form-control" /></td>
-                    <td><a type="button"class="btn btn-danger" id="">Update</a></td>
-                </tr>
-            }
+        @foreach (var match in Model)
+        {
+
+            <tr>
+
+
+                <td><input type="text" value="@match.TeamA_Name" id="teamA_@match.matchid" disabled class="form-control" /></td>
+                <td><input type="text" value="@match.TeamB_Name" id="teamB_@match.matchid" disabled class="form-control" /></td>
+                <td><input type="text" value="@match.Venue" id="Venue_@match.matchid" class="form-control" /></td>
+                <td><input type="date" id="startdate_@match.matchid" value="@match.MatchDate.Date.ToString("yyyy-MM-dd")" class="form-control" /></td>
+                <td><input type="number" id="teamAscore_@match.matchid" value="@match.TeamA_score" class="form-control" /></td>
+                <td><input type="number" id="teamBscore_@match.matchid" value="@match.TeamB_score" class="form-control" /></td>
+                <td><button type="button" class="btn btn-danger" name="update" id="@match.matchid">Update</button></td>
+
+            </tr>
+
+        }
     </tbody>
 </table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#dest tbody").on("click", '[name = "update"]', function () {
+        debugger
+        var match = {};
+        var id = $(this).attr('id');
+        match.matchid = id;
+        match.TeamA_Name = $("#teamA_" + id).val();
+        match.TeamB_Name = $("#teamB_" + id).val();
+        match.Venue = $("#Venue_" + id).val();
+        match.MatchDate = $("#startdate_" + id).val();
+        match.TeamA_score = $("#teamAscore_" + id).val();
+        match.TeamB_score = $("#teamBscore_" + id).val();
+        $.ajax({
+            type: "post",
+            url: '@Url.Action("UpdateMatch","Cricket")',
+            data: JSON.stringify({Match : match}),
+            contentType: 'application/json',
+            success: function (data) {
+                alert(data);
+                location.reload();
+            }
+
+        })
+
+    })
+</script>

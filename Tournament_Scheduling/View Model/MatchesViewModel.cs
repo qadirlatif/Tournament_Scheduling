@@ -9,6 +9,7 @@ namespace Tournament_Scheduling.View_Model
 {
     public class MatchesViewModel
     {
+        public int matchid { get; set; }
         public int EventId { get; set; }
         public string TeamA_Name { get; set; }
         public string TeamB_Name { get; set; }

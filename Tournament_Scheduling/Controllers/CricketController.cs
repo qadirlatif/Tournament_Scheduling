@@ -56,7 +56,15 @@ namespace Tournament_Scheduling.Controllers
         public ActionResult Index()
         {
             var events = db.Events.ToList();
-            return View(events);
+            if(events != null)
+            {
+                return View(events);
+            }
+            else
+            {
+                return View();
+            }
+            
         }
         public ActionResult Schedules(int id)
         {
@@ -72,6 +80,7 @@ namespace Tournament_Scheduling.Controllers
                 matchdetails.TeamB_Name = db.teams.Where(x => x.id == match.TeamB_id).Select(x => x.Name).FirstOrDefault();
                 matchdetails.TeamA_score = match.TeamA_score;
                 matchdetails.TeamB_score = match.TeamB_score;
+                matchdetails.matchid = match.id;
                 model.Add(matchdetails);
             }
             ViewBag.events = myevent;
@@ -103,6 +112,17 @@ namespace Tournament_Scheduling.Controllers
                 allteams.Add(team);
                 db.teams.Add(team);
                 db.SaveChanges();
+                PointsTable point = new PointsTable();
+                point.TeamID = team.id;
+                point.EventID = eventid;
+                point.TeamName = team.Name;
+                point.Matches = 0;
+                point.Wins = 0;
+                point.Loss = 0;
+                point.Points = 0;
+                point.Keyparams = team.id.ToString();
+                db.PointsTables.Add(point);
+                db.SaveChanges();
             }
 
             var matches = RoundRobinFIxtures(Venues, allteams,  StartDate, EndDate );
@@ -114,10 +134,28 @@ namespace Tournament_Scheduling.Controllers
                 match.keyparams = matchid.ToString();
                 db.matches.Add(match);
                 db.SaveChanges();
+                
+
             }
             
             return Content("event added");
         }
-        
+        [HttpPost]
+        public ActionResult UpdateMatch(MatchesViewModel Match)
+        {
+            var target = db.matches.Where(x => x.id == Match.matchid).FirstOrDefault();
+            target.TeamA_score = Match.TeamA_score;
+            target.TeamB_score = Match.TeamB_score;
+            target.Venue = Match.Venue;
+            target.MatchDate = Match.MatchDate;
+            db.Entry(target).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return Content("Match Details Updated");
+        }
+        public ActionResult PointsTable(int EventID = 0)
+        {
+            var pointstable = db.PointsTables.Where(x => x.EventID == EventID).ToList();
+            return View(pointstable);
+        }
     }
 }
