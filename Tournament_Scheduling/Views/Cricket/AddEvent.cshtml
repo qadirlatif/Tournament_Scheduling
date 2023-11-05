@@ -1,0 +1,102 @@
+﻿@model List<Tournament_Scheduling.Models.Team>
+@{
+    ViewBag.Title = "AddEvent";
+}
+
+<h2>AddEvent</h2>
+
+<div>
+    <label>Event Name : </label>
+    <input type="text" class="form-control" id="eventname" />
+</div>
+<div>
+    <label>Scheduling Type : </label>
+    <select class="form-control" id="type">
+        <option disabled selected>Select Type</option>
+        <option value="1">Round robin</option>
+    </select>
+</div>
+<div>
+    <label>Event Start Date : </label>
+    <input type="date" id="startdate" class="form-control" />
+    <label>Event End Date</label>
+    <input type="date" id="enddate" class="form-control" />
+</div>
+<h4 class="text-center">Add Teams</h4>
+<table class="table table-hover" id="teamstable">
+    <thead>
+        <tr>
+            <th>Team Name</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<button type="button" class="btn btn-primary" id="add" style="border-radius: 25px">More +</button>
+<h4 class="text-center">Add Venue</h4>
+<table class="table table-hover" id="dest">
+    <thead>
+        <tr>
+            <th>Venue</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<button type="button" class="btn btn-primary" id="addvenue" style="border-radius: 25px">More +</button>
+
+<div style="width: 100%">
+    <br />
+    <button type="button" id="submit" class="btn btn-secondary form-control" style="border-radius: 50px">Add Event</button>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#add").click(function () {
+        var lineItemsTable = $("#teamstable tbody");
+        var newRow = $("<tr>");
+        newRow.append("<td><input type='text' class='form-control' /> </td>");
+        lineItemsTable.append(newRow);
+
+    })
+    $("#addvenue").click(function () {
+        var lineItemsTable = $("#dest tbody");
+        var newRow = $("<tr>");
+        newRow.append("<td><input type='text' class='form-control' /> </td>");
+        lineItemsTable.append(newRow);
+
+    })
+
+
+    $("#submit").click(function () {
+        debugger
+        var eventname = $("#eventname").val();
+        var type = $("#type").val();
+        var startdate = $("#startdate").val();
+        var enddate = $("#enddate").val();
+        var teams = [];
+        var venues = [];
+        $("#teamstable tbody tr").each(function () {
+            debugger
+            var team = {};
+            team.Name = $(this).find("td:eq(0) input.form-control").val();
+            teams.push(team);
+        });
+        $("#dest tbody tr").each(function () {
+            debugger
+            var venue = {};
+            venue.Name = $(this).find("td:eq(0) input.form-control").val();
+            venues.push(venue);
+        });
+        $.ajax({
+            type: "post",
+            url: '@Url.Action("AddEvent","Cricket")',
+            data: JSON.stringify({ Venues: venues, teams: teams, eventname: eventname, type: type, StartDate: startdate, EndDate: enddate }),
+            contentType: 'application/json',
+            success: function (data) {
+                alert(data);
+            }
+        })
+
+    })
+</script>
+

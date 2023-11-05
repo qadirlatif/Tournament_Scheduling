@@ -1,0 +1,32 @@
+﻿@model List<Tournament_Scheduling.View_Model.MatchesViewModel>
+@{
+    ViewBag.Title = "Schedules";
+}
+<label>Event Name : @ViewBag.events.name </label>
+<table class="table table-hover" id="dest">
+    <thead>
+        <tr>
+            <th>Team A</th>
+            <th>Team B</th>
+            <th>Match Venue</th>
+            <th>Match Date</th>
+            <th>Team A Score</th>
+            <th>Team B Score</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var match in Model)
+            {
+                <tr>
+                    <td>@match.TeamA_Name</td>
+                    <td>@match.TeamB_Name</td>
+                    <td><input type="text" value="@match.Venue" class="form-control"/></td>
+                    <td><input type="text" value="@match.MatchDate.ToString("MM/dd/yyyy")" class="form-control" /></td>
+                    <td><input type="number" value="@match.TeamA_score" class="form-control" /></td>
+                    <td><input type="number" value="@match.TeamB_score" class="form-control" /></td>
+                    <td><a type="button"class="btn btn-danger" id="">Update</a></td>
+                </tr>
+            }
+    </tbody>
+</table>

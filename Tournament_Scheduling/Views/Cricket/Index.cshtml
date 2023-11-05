@@ -1,0 +1,35 @@
+﻿@model List<Tournament_Scheduling.Models.Event>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Welcome</h2>
+<a href="~/Cricket/AddEvent" type="button" class="btn btn-primary">Add Events</a>
+<table width="100%" class="table table-hover">
+    <tr>
+        <th>Event ID</th>
+        <th>Event Name</th>
+        <th>Event Details</th>
+
+    </tr>
+    @{
+        if (Model != null)
+        {
+            foreach (var events in Model)
+            {
+                <tr>
+                    <td>
+                        @events.id
+                    </td>
+                    <td>
+                        @events.name
+                    </td>
+                    <td>
+                        <a href="~/Cricket/Schedules/@events.id" type="button" class="btn btn-secondary">View Schedules</a>
+                    </td>
+                </tr>
+            }
+        }
+    }
+</table>
+
