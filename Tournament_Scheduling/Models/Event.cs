@@ -8,14 +8,13 @@ using System.Web;
 namespace Tournament_Scheduling.Models
 {
     [Table("Event")]
-    public class Event
+    public class Event : BaseEntity
     {
         
-        public int id{ get; set; }
+        public int Eventid{ get; set; }
         public string name { get; set; }
         public DateTime startdate { get; set; }
         public DateTime enddate { get; set; }
-        [Key]
         public string keyparams { get; set; }
     }
 }

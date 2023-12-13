@@ -8,7 +8,7 @@ using System.Web;
 namespace Tournament_Scheduling.Models
 {
     [Table("PointsTable")]
-    public class PointsTable
+    public class PointsTable : BaseEntity
     {
         public int TeamID { get; set; }
         public string TeamName { get; set; }
@@ -17,7 +17,6 @@ namespace Tournament_Scheduling.Models
         public int Wins { get; set; }
         public int Loss { get; set; }
         public int Points { get; set; }
-        [Key]
         public string Keyparams { get; set; }
     }
 }

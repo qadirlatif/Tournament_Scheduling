@@ -9,12 +9,11 @@ using System.Web;
 namespace Tournament_Scheduling.Models
 {
     [Table("Team")]
-    public class Team
+    public class Team : BaseEntity
     {
-        public int id { get; set; }
+        public int Teamid { get; set; }
         public int EventID { get; set; }
         public string Name { get; set; }
-        [Key]
         public string keyparams { get; set; }
     }
 }

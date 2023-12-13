@@ -105,6 +105,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202312121044358_initialize.cs" />
+    <Compile Include="Migrations\202312121044358_initialize.designer.cs">
+      <DependentUpon>202312121044358_initialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\PointsTable.cs" />
@@ -131,6 +137,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202312121044358_initialize.resx">
+      <DependentUpon>202312121044358_initialize.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

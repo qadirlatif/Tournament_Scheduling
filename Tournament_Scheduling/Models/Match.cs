@@ -8,9 +8,9 @@ using System.Web;
 namespace Tournament_Scheduling.Models
 {
     [Table("Match")]
-    public class Match
+    public class Match : BaseEntity
     {
-        public int id { get; set; }
+        public int Matchid { get; set; }
         public int EventId { get; set; }
         public int TeamA_id { get; set; }
         public int TeamB_id { get; set; }
@@ -18,7 +18,6 @@ namespace Tournament_Scheduling.Models
         public int TeamB_score { get; set; }
         public DateTime MatchDate { get; set; }
         public string Venue { get; set; }
-        [Key]
         public string keyparams { get; set; }
     }
 }
